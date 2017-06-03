@@ -3,23 +3,20 @@ package com.example.demo.dao.entity;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
- * Created by gaojun on 2017-5-31.
+ * Created by Administrator on 2017/06/03.
  *
- * @author gaojun
+ * @author Administrator
  */
 @Getter
 @Setter
 @Entity
-@Table(name = "t_test")
-public class Test {
+@Table(name = "t_league")
+public class League {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String a;
     private String b;

@@ -16,7 +16,7 @@ import javax.persistence.Table;
 @Getter
 @Setter
 @Entity
-@Table(name = "T_TEST2")
+@Table(name = "t_test2")
 public class Test2 {
     @Id
     @GeneratedValue
