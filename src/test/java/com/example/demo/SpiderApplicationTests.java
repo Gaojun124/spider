@@ -1,10 +1,14 @@
 package com.example.demo;
 
 import com.example.demo.dao.repository.TestRepository;
+import com.example.demo.pipeline.CupDataPipeline;
 import com.example.demo.pipeline.HtmlPipeline;
 import com.example.demo.pipeline.LeagueDataPipeline;
+import com.example.demo.pipeline.SubLeagueDataPipeline;
+import com.example.demo.processor.CupDataProcessor;
 import com.example.demo.processor.HtmlPageProcessor;
 import com.example.demo.processor.LeagueDataProcessor;
+import com.example.demo.processor.SubLeagueDataProcessor;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
@@ -39,6 +43,18 @@ public class SpiderApplicationTests {
 
 	@Autowired
 	private LeagueDataPipeline leagueDataPipeline;
+
+	@Autowired
+	private SubLeagueDataProcessor subLeagueDataProcessor;
+
+	@Autowired
+	private SubLeagueDataPipeline subLeagueDataPipeline;
+
+	@Autowired
+	private CupDataProcessor cupDataProcessor;
+
+	@Autowired
+	private CupDataPipeline cupDataPipeline;
 
 	@Test
 	public void findUrl() {
@@ -78,13 +94,10 @@ public class SpiderApplicationTests {
 	public void findJavaScript(){
 		List<String> urlList = testRepository.queryUrl();
 		Spider.create(htmlPageProcessor)
-				//从"https://github.com/code4craft"开始抓
 				.addUrl(urlList.toArray(new String[urlList.size()]))
 				.addPipeline(htmlPipeline)
 				.addUrl()
-				//开启5个线程抓取
 				.thread(5)
-				//启动爬虫
 				.run();
 	}
 
@@ -95,6 +108,26 @@ public class SpiderApplicationTests {
 				.addUrl(urlList.toArray(new String[urlList.size()]))
 				.addPipeline(leagueDataPipeline)
 				.addUrl()
+				.thread(5)
+				.run();
+	}
+
+	@Test
+	public void findSubLeagueData(){
+		List<String> urlList = testRepository.querySubLeagueUrl();
+		Spider.create(subLeagueDataProcessor)
+				.addUrl(urlList.toArray(new String[urlList.size()]))
+				.addPipeline(subLeagueDataPipeline)
+				.thread(5)
+				.run();
+	}
+
+	@Test
+	public void findCupData(){
+		List<String> urlList = testRepository.queryCupUrl();
+		Spider.create(cupDataProcessor)
+				.addUrl(urlList.toArray(new String[urlList.size()]))
+				.addPipeline(cupDataPipeline)
 				.thread(5)
 				.run();
 	}
