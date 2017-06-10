@@ -87,19 +87,19 @@ public class LeagueDataPipeline implements Pipeline {
                     Match match = new Match();
                     match.setA(String.valueOf(olist.get(0)));
                     match.setB(String.valueOf(olist.get(1)));
-                    match.setC(LeagueSeason);
-                    match.setD(entry.getKey());
-                    match.setE(String.valueOf(olist.get(3)));
-                    match.setF(String.valueOf(olist.get(4)));
-                    match.setG(String.valueOf(olist.get(5)));
-                    match.setH(String.valueOf(olist.get(6)));
-                    match.setI(String.valueOf(olist.get(7)));
-                    match.setJ(String.valueOf(olist.get(8)));
-                    match.setK(String.valueOf(olist.get(9)));
-                    match.setL(String.valueOf(olist.get(10)));
-                    match.setM(String.valueOf(olist.get(11)));
-                    match.setN(String.valueOf(olist.get(12)));
-                    match.setO(String.valueOf(olist.get(13)));
+                    match.setD(LeagueSeason);
+                    match.setE(entry.getKey());
+                    match.setF(String.valueOf(olist.get(3)));
+                    match.setG(String.valueOf(olist.get(4)));
+                    match.setH(String.valueOf(olist.get(5)));
+                    match.setI(String.valueOf(olist.get(6)));
+                    match.setJ(String.valueOf(olist.get(7)));
+                    match.setK(String.valueOf(olist.get(8)));
+                    match.setL(String.valueOf(olist.get(9)));
+                    match.setM(String.valueOf(olist.get(10)));
+                    match.setN(String.valueOf(olist.get(11)));
+                    match.setO(String.valueOf(olist.get(12)));
+                    match.setP(String.valueOf(olist.get(13)));
                     matchList.add(match);
                 }
             }

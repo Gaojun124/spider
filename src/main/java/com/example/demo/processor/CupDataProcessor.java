@@ -49,14 +49,14 @@ public class CupDataProcessor implements PageProcessor {
         logger.info(url);
         try {
             Map<String,List> matchMap= new HashMap<>();
-            page.putField("LeagueSeason",url.substring(url.indexOf("t/")+2,url.indexOf("/s")));
+            page.putField("LeagueSeason",url.substring(url.indexOf("t/")+2,url.indexOf("/c")));
             while((lineTxt = reader.readLine()) != null){
                 if(lineTxt.contains("=")){
                     lineTitle = lineTxt.substring(0,lineTxt.indexOf("="));
                     lineContent = lineTxt.substring(lineTxt.indexOf(" = ")+3,lineTxt.length()-1);
                     List list = new ArrayList();
 
-                    if(lineTitle.contains("arrLeague")){
+                    if(lineTitle.contains("arrCup ")){
                         try{
                             list = objectMapper.readValue(lineContent,List.class);
                         }catch (Exception e){
@@ -71,14 +71,24 @@ public class CupDataProcessor implements PageProcessor {
                             System.out.println(e.getMessage());
                         }
                         page.putField("team",list);
-                    }else if(lineTitle.contains("jh[\"")){
-                        String key = lineTitle.substring(lineTitle.indexOf("jh[\"")+4,lineTitle.indexOf("\"]"));
+                    }else if(lineTitle.contains("jh[\"G")){
+                        String key = lineTitle.substring(lineTitle.indexOf("jh[\"G")+5,lineTitle.indexOf("\"]"));
                         try{
                             list = objectMapper.readValue(lineContent,List.class);
                         }catch (Exception e){
                             System.out.println(e.getMessage());
                         }
-                        matchMap.put(key,list);
+                        List list1 = new ArrayList();
+                        for (Object aList : list) {
+                            if ((((List) aList).get(4) instanceof List)) {
+                                list1.add(((List) aList).get(4));
+                            }
+                        }
+                        if(list1.size()==0){
+                            matchMap.put(key,list);
+                        }else{
+                            matchMap.put(key,list1);
+                        }
                     }
                 }
             }

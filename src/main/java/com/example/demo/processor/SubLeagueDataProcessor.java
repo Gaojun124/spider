@@ -31,7 +31,7 @@ public class SubLeagueDataProcessor implements PageProcessor {
             .setRetryTimes(3)
             .setSleepTime(1000)
             .setCharset("UTF-8")
-            .setUserAgent("Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.98 Safari/537.36")
+            .setUserAgent("Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/536.36 (KHTML, like Gecko) Chrome/56.0.2987.98 Safari/536.36")
             ;
 
     @Override
@@ -50,6 +50,7 @@ public class SubLeagueDataProcessor implements PageProcessor {
         try {
             Map<String,List> matchMap= new HashMap<>();
             page.putField("LeagueSeason",url.substring(url.indexOf("t/")+2,url.indexOf("/s")));
+            page.putField( "SubLeagueId",url.substring(url.indexOf("_")+1,url.indexOf(".js")));
             while((lineTxt = reader.readLine()) != null){
                 if(lineTxt.contains("=")){
                     lineTitle = lineTxt.substring(0,lineTxt.indexOf("="));
@@ -78,7 +79,18 @@ public class SubLeagueDataProcessor implements PageProcessor {
                         }catch (Exception e){
                             System.out.println(e.getMessage());
                         }
-                        matchMap.put(key,list);
+                        List list1 = new ArrayList();
+                        for (Object aList : list) {
+                            if ((((List) aList).get(4) instanceof List)) {
+                                list1.add(((List) aList).get(4));
+                            }
+                        }
+                        if(list1.size()==0){
+                            matchMap.put(key,list);
+                        }else{
+                            matchMap.put(key,list1);
+                        }
+
                     }
                 }
             }

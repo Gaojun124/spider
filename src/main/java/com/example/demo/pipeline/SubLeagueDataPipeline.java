@@ -40,16 +40,16 @@ public class SubLeagueDataPipeline implements Pipeline {
     @Override
     public void process(ResultItems resultItems, Task task) {
     String LeagueSeason = resultItems.get("LeagueSeason");
+    String SubLeagueId = resultItems.get("SubLeagueId");
         if(resultItems.get("league")!=null){
             List  list = resultItems.get("league");
             League league = new League();
             league.setA(String.valueOf(list.get(0)));
             league.setB(String.valueOf(list.get(1)));
             league.setC(String.valueOf(list.get(3)));
-            league.setD(String.valueOf(list.get(7)));
-            league.setE(String.valueOf(list.get(9)));
-            league.setF(String.valueOf(list.get(11)));
-            league.setG(String.valueOf(list.get(12)));
+            league.setE(String.valueOf(list.get(7)));
+            league.setF(String.valueOf(list.get(8)));
+            league.setG(String.valueOf(list.get(10)));
             try{
                 leagueRepository.save(league);
             }catch (Exception e){
@@ -87,19 +87,20 @@ public class SubLeagueDataPipeline implements Pipeline {
                     Match match = new Match();
                     match.setA(String.valueOf(olist.get(0)));
                     match.setB(String.valueOf(olist.get(1)));
-                    match.setC(LeagueSeason);
-                    match.setD(entry.getKey());
-                    match.setE(String.valueOf(olist.get(3)));
-                    match.setF(String.valueOf(olist.get(4)));
-                    match.setG(String.valueOf(olist.get(5)));
-                    match.setH(String.valueOf(olist.get(6)));
-                    match.setI(String.valueOf(olist.get(7)));
-                    match.setJ(String.valueOf(olist.get(8)));
-                    match.setK(String.valueOf(olist.get(9)));
-                    match.setL(String.valueOf(olist.get(10)));
-                    match.setM(String.valueOf(olist.get(11)));
-                    match.setN(String.valueOf(olist.get(12)));
-                    match.setO(String.valueOf(olist.get(13)));
+                    match.setC(SubLeagueId);
+                    match.setD(LeagueSeason);
+                    match.setE(entry.getKey());
+                    match.setF(String.valueOf(olist.get(3)));
+                    match.setG(String.valueOf(olist.get(4)));
+                    match.setH(String.valueOf(olist.get(5)));
+                    match.setI(String.valueOf(olist.get(6)));
+                    match.setJ(String.valueOf(olist.get(7)));
+                    match.setK(String.valueOf(olist.get(8)));
+                    match.setL(String.valueOf(olist.get(9)));
+                    match.setM(String.valueOf(olist.get(10)));
+                    match.setN(String.valueOf(olist.get(11)));
+                    match.setO(String.valueOf(olist.get(12)));
+                    match.setP(String.valueOf(olist.get(13)));
                     matchList.add(match);
                 }
             }

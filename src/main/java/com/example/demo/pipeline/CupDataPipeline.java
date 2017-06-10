@@ -17,6 +17,7 @@ import us.codecraft.webmagic.pipeline.Pipeline;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 
 /**
@@ -46,10 +47,9 @@ public class CupDataPipeline implements Pipeline {
             league.setA(String.valueOf(list.get(0)));
             league.setB(String.valueOf(list.get(1)));
             league.setC(String.valueOf(list.get(3)));
-            league.setD(String.valueOf(list.get(7)));
-            league.setE(String.valueOf(list.get(9)));
-            league.setF(String.valueOf(list.get(11)));
-            league.setG(String.valueOf(list.get(12)));
+            league.setE(String.valueOf(list.get(7)));
+            league.setF(String.valueOf(list.get(8)));
+            league.setG(String.valueOf(list.get(10)));
             try{
                 leagueRepository.save(league);
             }catch (Exception e){
@@ -83,23 +83,36 @@ public class CupDataPipeline implements Pipeline {
             List<Match> matchList = new ArrayList<>();
             for (Map.Entry<String, List> entry : map.entrySet()) {
                 for (Object o : entry.getValue()) {
+                    String subId;
+                    if(Pattern.compile("(?i)[a-z]").matcher(entry.getKey()).find() ){
+                         subId = entry.getKey().substring(0,entry.getKey().length()-1);
+                    }else {
+                         subId = entry.getKey();
+                    }
+
                     List olist = (List) o;
                     Match match = new Match();
                     match.setA(String.valueOf(olist.get(0)));
                     match.setB(String.valueOf(olist.get(1)));
-                    match.setC(LeagueSeason);
-                    match.setD(entry.getKey());
-                    match.setE(String.valueOf(olist.get(3)));
-                    match.setF(String.valueOf(olist.get(4)));
-                    match.setG(String.valueOf(olist.get(5)));
-                    match.setH(String.valueOf(olist.get(6)));
-                    match.setI(String.valueOf(olist.get(7)));
-                    match.setJ(String.valueOf(olist.get(8)));
-                    match.setK(String.valueOf(olist.get(9)));
-                    match.setL(String.valueOf(olist.get(10)));
-                    match.setM(String.valueOf(olist.get(11)));
-                    match.setN(String.valueOf(olist.get(12)));
-                    match.setO(String.valueOf(olist.get(13)));
+                    match.setC(subId);
+                    match.setD(LeagueSeason);
+                    match.setE(entry.getKey().replace(subId,""));
+                    match.setF(String.valueOf(olist.get(3)));
+                    match.setG(String.valueOf(olist.get(4)));
+                    match.setH(String.valueOf(olist.get(5)));
+                    match.setI(String.valueOf(olist.get(6)));
+                    match.setJ(String.valueOf(olist.get(7)));
+                    match.setK(String.valueOf(olist.get(8)));
+                    match.setL(String.valueOf(olist.get(9)));
+                    match.setM(String.valueOf(olist.get(10)));
+                    match.setN(String.valueOf(olist.get(11)));
+                    match.setO(String.valueOf(olist.get(12)));
+                    match.setP(String.valueOf(olist.get(13)));
+                    match.setQ(String.valueOf(olist.get(20)));
+                    if(olist.size()>23){
+                        match.setR(String.valueOf(olist.get(23)));
+                    }
+
                     matchList.add(match);
                 }
             }
