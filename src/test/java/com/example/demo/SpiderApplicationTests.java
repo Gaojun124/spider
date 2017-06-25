@@ -17,6 +17,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -142,18 +143,19 @@ public class SpiderApplicationTests {
 		Date beginDate = new Date();
 		Date endDate = new Date();
 		try {
-			beginDate = simpleDateFormat.parse("2009-05");
-			endDate = simpleDateFormat.parse("2017-06");
+			beginDate = simpleDateFormat.parse("2009-10");
+			endDate = simpleDateFormat.parse("2017-07");
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
 		Calendar date = Calendar.getInstance();//定义日期实例
 		date.setTime(beginDate);
 		SimpleDateFormat simpleDateFormat2 = new SimpleDateFormat("yyMM");
+		DecimalFormat df=new DecimalFormat("00");
 		List<String> urlList = new ArrayList<>();
 		while (date.getTime().before(endDate)) {
-			for (int i = 1; i < 20; i++) {
-				String url = "http://trade.500.com/bjdc/?expect=" + simpleDateFormat2.format(date.getTime()) + "0" + i;
+			for (int i = 1; i < 30; i++) {
+				String url = "http://www.310win.com/buy/DanChang.aspx?TypeID=5&issueNum=" + simpleDateFormat2.format(date.getTime()) + df.format(i);
 				urlList.add(url);
 			}
 			date.add(Calendar.MONTH, 1);
